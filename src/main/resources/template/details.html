@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Urunler Sayfasi</title>
+    <title>Urun Detay Sayfasi</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -25,40 +25,18 @@
         <li role="presentation" class="active"><a href="/urunler">Urunler</a></li>
     </ul>
 
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Urun Adi</th>
-                <th>Barkod</th>
-                <th>Fiyat</th>
-                <th>Resim</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="prod: ${urunler}">
-                <td th:text="${prod.id}">Table cell</td>
-                <td th:text="${prod.name}">Table cell</td>
-                <td th:text="${prod.barcode}">Table cell</td>
-                <td th:text="${prod.price}">Table cell</td>
-                <td th:text="${prod.img}"></td>
-                <td><a th:href="@{'/urunler/' + ${prod.id}}" target="_blank" class="btn btn-success"><span
-                        class="glyphicon glyphicon-search" aria-hidden="true"></span> incele</a></td>
-            </tr>
-
-            </tbody>
-        </table>
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Ana sayfa</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Urunler</li>
-            </ol>
-        </nav>
+    <div>
+        <h3 th:text="${urun.name}"></h3>
+        <img th:src="${urun.img}"/>
     </div>
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Ana sayfa</a></li>
+            <li class="breadcrumb-item "><a href="/urunler">Urunler</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detay</li>
+        </ol>
+    </nav>
 
 </div>
 
