@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setPrefix("template/");
         templateResolver.setCacheable(false);
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
 
         return templateResolver;

@@ -1,6 +1,7 @@
 package com.ecommerce.myshop.service;
 
 import com.ecommerce.myshop.domain.Product;
+import com.ecommerce.myshop.payload.ProductPayload;
 import com.ecommerce.myshop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Product add(ProductPayload productPayload) {
+        Product product = new Product(null, productPayload.getName(), productPayload.getImg(), productPayload.getPrice(), productPayload.getBarcode());
+        return this.save(product);
     }
 }
