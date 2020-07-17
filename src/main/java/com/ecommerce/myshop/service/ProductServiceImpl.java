@@ -1,19 +1,24 @@
 package com.ecommerce.myshop.service;
 
+import com.ecommerce.myshop.domain.Brand;
 import com.ecommerce.myshop.domain.Product;
 import com.ecommerce.myshop.payload.ProductPayload;
 import com.ecommerce.myshop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final BrandService brandService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, BrandService brandService) {
         this.productRepository = productRepository;
+        this.brandService = brandService;
     }
 
     @Override
@@ -32,8 +37,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Product add(ProductPayload productPayload) {
-        Product product = new Product(null, productPayload.getName(), productPayload.getImg(), productPayload.getPrice(), productPayload.getBarcode());
-        return this.save(product);
+        Optional<Brand> optBrand = brandService.findByName("default");
+        if (optBrand.isPresent()) {
+            Product product = new Product(null, productPayload.getName(), productPayload.getImg(), productPayload.getPrice(), productPayload.getBarcode(), optBrand.get());
+            return this.save(product);
+        } else {
+            Brand brand = new Brand("default");
+            brand = brandService.save(brand);
+            Product product = new Product(null, productPayload.getName(), productPayload.getImg(), productPayload.getPrice(), productPayload.getBarcode(), brand);
+            return this.save(product);
+        }
+
+
     }
 }
